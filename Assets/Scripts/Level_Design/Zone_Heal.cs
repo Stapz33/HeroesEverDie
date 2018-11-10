@@ -23,7 +23,15 @@ public class Zone_Heal : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.GetComponent<Player_Manager>().Heal();
+            other.GetComponent<Player_Manager>().HealZone();
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.GetComponent<Player_Manager>().NoHealZone();
         }
     }
 }

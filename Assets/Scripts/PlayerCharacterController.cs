@@ -7,6 +7,7 @@ public class PlayerCharacterController : MonoBehaviour
 {
 
     public float moveSpeed;
+    private float BaseMoveSpeed;
     private Rigidbody myRigidbody;
     private Player_Manager PlyrManager;
     private Animator a_myAnimator;
@@ -110,13 +111,15 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void StunPlayer()
     {
+        BaseMoveSpeed = moveSpeed;
         moveSpeed = 0f;
         StartCoroutine(Patobeur());
     }
 
     IEnumerator Patobeur()
     {
-        yield return new WaitForSeconds(f_DelayToStun);
+        yield return new WaitForSeconds(2.5f);
+        moveSpeed = BaseMoveSpeed;
     }
 
     public IEnumerator StunCooldown()

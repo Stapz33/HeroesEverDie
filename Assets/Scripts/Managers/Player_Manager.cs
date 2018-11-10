@@ -46,9 +46,14 @@ public class Player_Manager : MonoBehaviour {
         }
 	}
 
-    public void Heal()
+    public void HealZone()
     {
         b_IsInHealZone = true;
+    }
+
+    public void NoHealZone()
+    {
+        b_IsInHealZone = false;
     }
 
     public void ZoneSafe()

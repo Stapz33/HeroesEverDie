@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
         Transform spawnPointTransform = l_SpawnPoint[Random.Range(0, l_SpawnPoint.Count)];
         foreach (Player_Manager player in PlayersList)
         {
-            player.Heal();
+            player.HealZone();
         }
         Instantiate(g_ZoneSafePrefab, spawnPointTransform.position, Quaternion.identity);
     }
