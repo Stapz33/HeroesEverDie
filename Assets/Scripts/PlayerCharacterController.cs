@@ -30,6 +30,7 @@ public class PlayerCharacterController : MonoBehaviour
     private bool b_IsOkToDash = true;
     private float f_ImpulseSave;
     private bool b_CanUseStun = true;
+    public GameObject g_ZoneDashPrefab;
 
 
 
@@ -76,17 +77,7 @@ public class PlayerCharacterController : MonoBehaviour
                 if (b_IsOkToDash)
                 {
                     myRigidbody.AddForce(transform.forward * f_DashForce,ForceMode.Impulse);
-                    g_StunZone.gameObject.SetActive(true);
-
-                    ////List<PlayerCharacterController> players = g_StunZone.GetPlayerInTrigger();
-                    //if (players != null)
-                    //{
-                    //    foreach (PlayerCharacterController push in players)
-                    //    {
-                    //        push.DashPlayerEffect();
-                    //    }
-                    //    b_IsOkToDash = false;
-                    //}
+                    g_ZoneDashPrefab.SetActive(true);
                 }
             }
         }
@@ -99,9 +90,14 @@ public class PlayerCharacterController : MonoBehaviour
         }
     }
 
-    public void DashPlayerEffect()
+    public void StopDash()
     {
-        
+        myRigidbody.velocity = new Vector3(0, 0, 0); 
+    }
+
+    public void ExpulsePlayer(Vector3 impulseVector)
+    {
+       myRigidbody.AddForce(impulseVector * f_DashForce, ForceMode.Impulse);
     }
 
     private void FixedUpdate()
