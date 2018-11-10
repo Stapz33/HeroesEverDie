@@ -35,6 +35,10 @@ public class Player_Stun_Zone : MonoBehaviour {
 
     public List<PlayerCharacterController> GetPlayerInTrigger()
     {
-        return g_PlayerToStun;
+        if (g_PlayerToStun != null)
+        {
+            return g_PlayerToStun;
+        }
+        return null;
     }
 }

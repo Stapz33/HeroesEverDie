@@ -22,7 +22,7 @@ AnimatorController:
     m_Controller: {fileID: 0}
   - m_Name: Speed
     m_Type: 1
-    m_DefaultFloat: 1
+    m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
@@ -726,7 +726,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 206771966203031834}
+  m_Motion: {fileID: 7400000, guid: 50d8e0a91516ac14cb0965abeba0480f, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -934,7 +934,7 @@ AnimatorStateMachine:
     m_Position: {x: 348, y: 480, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102326820463662336}
-    m_Position: {x: 300, y: 72, z: 0}
+    m_Position: {x: 300, y: 96, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102655684764862262}
     m_Position: {x: 420, y: 216, z: 0}

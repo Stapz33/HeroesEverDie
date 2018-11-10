@@ -11,7 +11,7 @@ public class PlayerCharacterController : MonoBehaviour
     private Player_Manager PlyrManager;
     private Animator a_myAnimator;
 
-    public string moveHorizontal, moveVertical;
+    public string moveHorizontal, moveVertical,AButton;
 
     private Vector3 moveInput;
     private Vector3 moveVelocity;
@@ -24,7 +24,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     public float f_DashCountDown = 4.0f;
     public float f_DashForce;
-    private bool b_IsOkToDash;
+    private bool b_IsOkToDash = true;
     private float f_ImpulseSave;
 
 
@@ -67,20 +67,23 @@ public class PlayerCharacterController : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
 
-            if (Input.GetKeyDown("e"))
+            if (Input.GetButtonDown(AButton))
             {
+                Debug.Log("Hi");
                 if (b_IsOkToDash)
                 {
-                    myRigidbody.AddForce(transform.forward * f_DashForce);
+                    myRigidbody.AddForce(transform.forward * f_DashForce,ForceMode.Impulse);
                     g_StunZone.gameObject.SetActive(true);
 
                     List<PlayerCharacterController> players = g_StunZone.GetPlayerInTrigger();
-
-                    foreach (PlayerCharacterController push in players)
+                    if (players != null)
                     {
-                        push.DashPlayerEffect();
+                        foreach (PlayerCharacterController push in players)
+                        {
+                            push.DashPlayerEffect();
+                        }
+                        b_IsOkToDash = false;
                     }
-                    b_IsOkToDash = false;
                 }
             }
         }
