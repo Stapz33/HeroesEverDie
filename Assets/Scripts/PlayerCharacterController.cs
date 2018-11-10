@@ -20,6 +20,13 @@ public class PlayerCharacterController : MonoBehaviour
     public Player_Stun_Zone g_StunZone;
     public float f_DelayToStun = 2.0f;
 
+    [Header("Dash")]
+
+    public float f_DashSpeed;
+    private float f_DashTime;
+    public float f_DashForce;
+    private bool b_IsOkToDash;
+
 
 
     // Use this for initialization
@@ -61,6 +68,28 @@ public class PlayerCharacterController : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetKeyDown("e"))
+        {
+            if (b_IsOkToDash)
+            {
+                myRigidbody.AddForce(transform.forward * f_DashForce);
+                g_StunZone.gameObject.SetActive(true);
+
+                List<PlayerCharacterController> players = g_StunZone.GetPlayerInTrigger();
+
+                foreach (PlayerCharacterController push in players)
+                {
+                    push.DashPlayerEffect();
+                }
+                b_IsOkToDash = false;
+            }
+        }
+    }
+
+    public void DashPlayerEffect()
+    {
+        
     }
 
     private void FixedUpdate()
