@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Player_Stun_Zone : MonoBehaviour {
 
-    private List<PlayerCharacterController> g_PlayerToStun;
+    private List<PlayerCharacterController> g_PlayerToStun = new List<PlayerCharacterController>();
+    private GameObject StunFX;
+    private GameObject SpriteUI;
 
 	// Use this for initialization
 	void Start () {
-		
+        StunFX = transform.GetChild(0).gameObject;
+        SpriteUI = transform.GetChild(1).gameObject;
+        StartCoroutine(CastStun());
 	}
 	
 	// Update is called once per frame
@@ -33,12 +37,30 @@ public class Player_Stun_Zone : MonoBehaviour {
         }
     }
 
-    public List<PlayerCharacterController> GetPlayerInTrigger()
+    public void StunPlayers()
     {
-        if (g_PlayerToStun != null)
+        SpriteUI.SetActive(false);
+        StunFX.SetActive(true);
+        if (g_PlayerToStun.Count > 0)
         {
-            return g_PlayerToStun;
+            foreach (PlayerCharacterController Player in g_PlayerToStun)
+            {
+                Player.StunPlayer();
+            }
+            StartCoroutine(Kill());
+            
         }
-        return null;
+    }
+
+    public IEnumerator CastStun()
+    {
+        yield return new WaitForSeconds(2);
+        StunPlayers();
+    }
+
+    public IEnumerator Kill()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Destroy(gameObject);
     }
 }

@@ -10,8 +10,10 @@ public class PlayerCharacterController : MonoBehaviour
     private Rigidbody myRigidbody;
     private Player_Manager PlyrManager;
     private Animator a_myAnimator;
+    public GameObject PlayerStunZone;
+    public Transform StunZoneTransform;
 
-    public string moveHorizontal, moveVertical,AButton;
+    public string moveHorizontal, moveVertical,AButton, BButton;
 
     private Vector3 moveInput;
     private Vector3 moveVelocity;
@@ -26,6 +28,7 @@ public class PlayerCharacterController : MonoBehaviour
     public float f_DashForce;
     private bool b_IsOkToDash = true;
     private float f_ImpulseSave;
+    private bool b_CanUseStun = true;
 
 
 
@@ -69,33 +72,29 @@ public class PlayerCharacterController : MonoBehaviour
 
             if (Input.GetButtonDown(AButton))
             {
-                Debug.Log("Hi");
                 if (b_IsOkToDash)
                 {
                     myRigidbody.AddForce(transform.forward * f_DashForce,ForceMode.Impulse);
                     g_StunZone.gameObject.SetActive(true);
 
-                    List<PlayerCharacterController> players = g_StunZone.GetPlayerInTrigger();
-                    if (players != null)
-                    {
-                        foreach (PlayerCharacterController push in players)
-                        {
-                            push.DashPlayerEffect();
-                        }
-                        b_IsOkToDash = false;
-                    }
+                    ////List<PlayerCharacterController> players = g_StunZone.GetPlayerInTrigger();
+                    //if (players != null)
+                    //{
+                    //    foreach (PlayerCharacterController push in players)
+                    //    {
+                    //        push.DashPlayerEffect();
+                    //    }
+                    //    b_IsOkToDash = false;
+                    //}
                 }
             }
         }
 
-        if (Input.GetKeyDown("a"))
+        if (Input.GetButtonDown(BButton) && b_CanUseStun)
         {
-            g_StunZone.gameObject.SetActive(true);
-            List<PlayerCharacterController> players = g_StunZone.GetPlayerInTrigger();
-            foreach (PlayerCharacterController stun in players)
-            {
-                stun.SetPlayerSpeed();
-            }
+            Instantiate(PlayerStunZone, StunZoneTransform.position, StunZoneTransform.rotation);
+            b_CanUseStun = false;
+            StartCoroutine(StunCooldown());
         }
     }
 
@@ -109,7 +108,7 @@ public class PlayerCharacterController : MonoBehaviour
         myRigidbody.velocity = moveVelocity;
     }
 
-    public void SetPlayerSpeed()
+    public void StunPlayer()
     {
         moveSpeed = 0f;
         StartCoroutine(Patobeur());
@@ -118,6 +117,12 @@ public class PlayerCharacterController : MonoBehaviour
     IEnumerator Patobeur()
     {
         yield return new WaitForSeconds(f_DelayToStun);
+    }
+
+    public IEnumerator StunCooldown()
+    {
+        yield return new WaitForSeconds(4);
+        b_CanUseStun = true;
     }
 
 }

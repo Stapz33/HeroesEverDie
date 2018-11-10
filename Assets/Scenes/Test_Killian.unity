@@ -82807,6 +82807,34 @@ Transform:
   m_Father: {fileID: 1080842009}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1544257674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1544257675}
+  m_Layer: 0
+  m_Name: StunTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1544257675
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1544257674}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 11.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 289945624}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1546151676
 Prefab:
   m_ObjectHideFlags: 0
@@ -98445,59 +98473,6 @@ Prefab:
     - {fileID: 20500000, guid: bdbe8c7348df9bd42a0e74e5a39b2d34, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bdbe8c7348df9bd42a0e74e5a39b2d34, type: 3}
   m_IsPrefabAsset: 0
---- !u!1 &1808376062
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1808376065}
-  - component: {fileID: 1808376064}
-  - component: {fileID: 1808376063}
-  m_Layer: 23
-  m_Name: Zone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1808376063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1808376062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 785971e7cb920634abb3907c5b1f0fe9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!135 &1808376064
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1808376062}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 3.17
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &1808376065
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1808376062}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.92, z: 6.34}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1899170918}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1812222398
 Prefab:
   m_ObjectHideFlags: 0
@@ -99227,7 +99202,6 @@ Transform:
   - {fileID: 98197666}
   - {fileID: 805994116}
   - {fileID: 1934321281}
-  - {fileID: 1808376065}
   m_Father: {fileID: 289945624}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -104383,7 +104357,23 @@ Prefab:
         type: 2}
       propertyPath: g_StunZone
       value: 
-      objectReference: {fileID: 1808376063}
+      objectReference: {fileID: 0}
+    - target: {fileID: 114650293650008344, guid: 226947126f8e0ba4fb5f2b404f891f75,
+        type: 2}
+      propertyPath: BButton
+      value: BP1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114650293650008344, guid: 226947126f8e0ba4fb5f2b404f891f75,
+        type: 2}
+      propertyPath: StunZoneTransform
+      value: 
+      objectReference: {fileID: 1544257675}
+    - target: {fileID: 114650293650008344, guid: 226947126f8e0ba4fb5f2b404f891f75,
+        type: 2}
+      propertyPath: PlayerStunZone
+      value: 
+      objectReference: {fileID: 1649949118294568, guid: 8346ae7d2bfc0af49b668faf03959521,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 23573514679658216, guid: 226947126f8e0ba4fb5f2b404f891f75, type: 2}
     - {fileID: 33714300773604476, guid: 226947126f8e0ba4fb5f2b404f891f75, type: 2}
