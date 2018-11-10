@@ -51,7 +51,7 @@ public class PlayerCharacterController : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
 
-        if(Input.GetKeyDown("Fire1"))
+        if(Input.GetKeyDown("a"))
             {
                 g_StunZone.gameObject.SetActive(true);
                 List<PlayerCharacterController> players = g_StunZone.GetPlayerInTrigger();
