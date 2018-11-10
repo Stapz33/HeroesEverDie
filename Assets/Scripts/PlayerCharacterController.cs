@@ -22,10 +22,10 @@ public class PlayerCharacterController : MonoBehaviour
 
     [Header("Dash")]
 
-    public float f_DashSpeed;
-    private float f_DashTime;
+    public float f_DashCountDown = 4.0f;
     public float f_DashForce;
     private bool b_IsOkToDash;
+    private float f_ImpulseSave;
 
 
 
@@ -40,6 +40,15 @@ public class PlayerCharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!b_IsOkToDash)
+        {
+            if(f_DashCountDown - Time.deltaTime <= 0)
+            {
+                b_IsOkToDash = true;
+            }
+        }
+
+
         moveInput = new Vector3(Input.GetAxisRaw(moveHorizontal), 0f, Input.GetAxisRaw(moveVertical));
         moveVelocity = moveInput * moveSpeed;
         if (moveVelocity == Vector3.zero)
@@ -58,31 +67,31 @@ public class PlayerCharacterController : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
 
-        if(Input.GetKeyDown("a"))
+            if (Input.GetKeyDown("e"))
             {
-                g_StunZone.gameObject.SetActive(true);
-                List<PlayerCharacterController> players = g_StunZone.GetPlayerInTrigger();
-                foreach(PlayerCharacterController stun in players)
+                if (b_IsOkToDash)
                 {
-                    stun.SetPlayerSpeed();
+                    myRigidbody.AddForce(transform.forward * f_DashForce);
+                    g_StunZone.gameObject.SetActive(true);
+
+                    List<PlayerCharacterController> players = g_StunZone.GetPlayerInTrigger();
+
+                    foreach (PlayerCharacterController push in players)
+                    {
+                        push.DashPlayerEffect();
+                    }
+                    b_IsOkToDash = false;
                 }
             }
         }
 
-        if (Input.GetKeyDown("e"))
+        if (Input.GetKeyDown("a"))
         {
-            if (b_IsOkToDash)
+            g_StunZone.gameObject.SetActive(true);
+            List<PlayerCharacterController> players = g_StunZone.GetPlayerInTrigger();
+            foreach (PlayerCharacterController stun in players)
             {
-                myRigidbody.AddForce(transform.forward * f_DashForce);
-                g_StunZone.gameObject.SetActive(true);
-
-                List<PlayerCharacterController> players = g_StunZone.GetPlayerInTrigger();
-
-                foreach (PlayerCharacterController push in players)
-                {
-                    push.DashPlayerEffect();
-                }
-                b_IsOkToDash = false;
+                stun.SetPlayerSpeed();
             }
         }
     }
