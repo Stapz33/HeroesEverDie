@@ -34,6 +34,7 @@ public class PlayerCharacterController : MonoBehaviour
     private bool b_IsOkToDash = false;
     private float f_ImpulseSave;
     private bool b_CanUseStun = true;
+    private bool b_isStun = false;
     public GameObject g_ZoneDashPrefab;
 
 
@@ -71,7 +72,7 @@ public class PlayerCharacterController : MonoBehaviour
             if (!b_IsOkToDash && !b_IsKnockedBack)
             transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
 
-            if (Input.GetButton(AButton) && b_CanDash)
+            if (Input.GetButton(AButton) && b_CanDash && !b_isStun)
             {
                 g_ZoneDashPrefab.SetActive(true);
                 b_IsOkToDash = true;
@@ -90,7 +91,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void StopDash()
     {
-        myRigidbody.velocity = new Vector3(0, 0, 0); 
+        b_IsOkToDash = false;
     }
 
     public IEnumerator DashCD()
@@ -98,7 +99,7 @@ public class PlayerCharacterController : MonoBehaviour
         yield return new WaitForSeconds(0.12f);
         b_IsOkToDash = false;
         g_ZoneDashPrefab.SetActive(false);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         b_CanDash = true;
     }
 
@@ -121,7 +122,7 @@ public class PlayerCharacterController : MonoBehaviour
             return;
         if (b_IsKnockedBack)
         {
-            myRigidbody.AddForce(ImpulseVector * f_DashForce * 3, ForceMode.Impulse);
+            myRigidbody.AddForce(ImpulseVector * f_DashForce * 5, ForceMode.Impulse);
         }
         if (b_IsOkToDash)
         {
@@ -135,15 +136,17 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void StunPlayer()
     {
+        b_isStun = true;
         BaseMoveSpeed = moveSpeed;
         moveSpeed = 0f;
-        StartCoroutine(Patobeur());
+        StartCoroutine(StunCD());
     }
 
-    IEnumerator Patobeur()
+    IEnumerator StunCD()
     {
         yield return new WaitForSeconds(2.5f);
         moveSpeed = BaseMoveSpeed;
+        b_isStun = false;
     }
 
     public IEnumerator StunCooldown()
