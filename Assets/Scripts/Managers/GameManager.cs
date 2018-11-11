@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +25,12 @@ public class GameManager : MonoBehaviour
 
     private Transform spawnPointTransform = null;
 
+    [Header("Timer")]
+
+    public Text t_Timer;
+    public float f_MaxTimer;
+    private float f_currentTimer;
+
     private void Awake()
     {
         if (s_Singleton != null)
@@ -38,25 +45,43 @@ public class GameManager : MonoBehaviour
     }
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         SetupHealZoneCountdown();
+        f_currentTimer = f_MaxTimer;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
-        if(b_IsOkToRandom)
+        if (b_IsOkToRandom)
         {
             ZoneTimer -= Time.deltaTime;
 
-            if(ZoneTimer <= 0)
+            if (ZoneTimer <= 0)
             {
                 GroundHeal();
                 b_IsOkToRandom = false;
             }
         }
-	}
+
+        f_currentTimer -= Time.deltaTime;
+        int minutes = Mathf.FloorToInt(f_currentTimer / 60f);
+        int seconds = Mathf.FloorToInt(f_currentTimer - minutes * 60f);
+        string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
+        t_Timer.text = niceTime.ToString();
+
+        if (f_currentTimer <= 0)
+        {
+            f_currentTimer = 0;
+            GameOver();
+        }
+    }
+
+    public void GameOver()
+    {
+        Time.timeScale = 0f;
+    }
 
     public void GroundHeal()
     {
@@ -84,6 +109,16 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < Players.Length; i++)
         {
             PlayersList.Add(Players[i].GetComponent<Player_Manager>());
+        }
+    }
+
+    public void UpdateTimer()
+    {
+        f_currentTimer -= Time.deltaTime;
+        t_Timer.text = f_currentTimer.ToString();
+        if (f_currentTimer <= 0)
+        {
+            //GameOver();
         }
     }
 
