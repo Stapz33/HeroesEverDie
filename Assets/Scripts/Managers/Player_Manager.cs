@@ -17,6 +17,10 @@ public class Player_Manager : MonoBehaviour {
 
     private bool b_IsInSafeZone;
 
+    public string PlayerName;
+
+    private PlayerCharacterController PlyrCtrl;
+
 
     private void Awake()
     {
@@ -26,6 +30,7 @@ public class Player_Manager : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        PlyrCtrl = GetComponent<PlayerCharacterController>();
         SetupPlayer();
     }
 	
@@ -42,7 +47,7 @@ public class Player_Manager : MonoBehaviour {
         {
             f_PlayerHP -= Time.deltaTime * f_DamageMultiplier;
             if (f_PlayerHP <= 0)
-                Destroy(gameObject);
+                GameManager.s_Singleton.GameOver();
         }
 	}
 
@@ -95,5 +100,20 @@ public class Player_Manager : MonoBehaviour {
         f_PlayerHP = f_MaxHealth;
         f_HealMultiplier = GameManager.s_Singleton.GetGenericHealMultiplier();
         f_DamageMultiplier = GameManager.s_Singleton.GetGenericDamageMultiplier();
+    }
+
+    public float GetPlayerHp()
+    {
+        return f_PlayerHP;
+    }
+
+    public string GetPlayerName()
+    {
+        return PlayerName;
+    }
+
+    public void Endgame()
+    {
+        PlyrCtrl.Endgame();
     }
 }

@@ -21,7 +21,8 @@ public class PlayerCharacterController : MonoBehaviour
     private Vector3 playerDirection;
     private Vector3 ImpulseVector;
 
-    public Player_Stun_Zone g_StunZone;
+    private bool b_isEndgame = false;
+    
     public float f_DelayToStun = 2.0f;
 
     [Header("Dash")]
@@ -48,7 +49,8 @@ public class PlayerCharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (b_isEndgame)
+            return;
 
         moveInput = new Vector3(Input.GetAxisRaw(moveHorizontal), 0f, Input.GetAxisRaw(moveVertical));
         moveVelocity = moveInput * moveSpeed;
@@ -71,6 +73,7 @@ public class PlayerCharacterController : MonoBehaviour
 
             if (Input.GetButton(AButton) && b_CanDash)
             {
+                g_ZoneDashPrefab.SetActive(true);
                 b_IsOkToDash = true;
                 b_CanDash = false;
                 StartCoroutine(DashCD());
@@ -94,6 +97,7 @@ public class PlayerCharacterController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.12f);
         b_IsOkToDash = false;
+        g_ZoneDashPrefab.SetActive(false);
         yield return new WaitForSeconds(1f);
         b_CanDash = true;
     }
@@ -113,6 +117,8 @@ public class PlayerCharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (b_isEndgame)
+            return;
         if (b_IsKnockedBack)
         {
             myRigidbody.AddForce(ImpulseVector * f_DashForce * 3, ForceMode.Impulse);
@@ -120,7 +126,6 @@ public class PlayerCharacterController : MonoBehaviour
         if (b_IsOkToDash)
         {
             myRigidbody.AddForce(transform.forward * f_DashForce, ForceMode.Impulse);
-            g_ZoneDashPrefab.SetActive(true);
         }
         else if (!b_IsOkToDash)
         {
@@ -143,8 +148,12 @@ public class PlayerCharacterController : MonoBehaviour
 
     public IEnumerator StunCooldown()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(2.5f);
         b_CanUseStun = true;
     }
 
+    public void Endgame()
+    {
+        b_isEndgame = true;
+    }
 }

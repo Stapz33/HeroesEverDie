@@ -54,7 +54,7 @@ public class Player_Stun_Zone : MonoBehaviour {
 
     public IEnumerator CastStun()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         StunPlayers();
     }
 

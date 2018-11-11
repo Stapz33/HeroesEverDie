@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour
     public GameObject ZoneSafePrefab;
     public GameObject HealZone;
     public List<Transform> l_SpawnPointBase;
+    public GameObject ParticleZone;
+    public Text WinText;
+    public GameObject WinMenu;
+
+    private bool b_IsInInvertMode = false;
 
     private Transform spawnPointTransform = null;
 
@@ -81,6 +86,19 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Time.timeScale = 0f;
+        float MinHP = 100f;
+        string PlayerName = "none";
+        foreach (Player_Manager player in PlayersList)
+        {
+            player.Endgame();
+            if (player.GetPlayerHp() < MinHP)
+            {
+                PlayerName = player.GetPlayerName();
+                MinHP = player.GetPlayerHp();
+            }
+        }
+        WinMenu.SetActive(true);
+        WinText.text = PlayerName + " Wins !";
     }
 
     public void GroundHeal()
@@ -90,7 +108,9 @@ public class GameManager : MonoBehaviour
         foreach (Player_Manager player in PlayersList)
         {
             player.HealZone();
+            b_IsInInvertMode = true;
         }
+        ParticleZone.SetActive(true);
         Instantiate(ZoneSafePrefab, spawnPointTransform.position, Quaternion.identity);
     }
 
@@ -118,7 +138,7 @@ public class GameManager : MonoBehaviour
         t_Timer.text = f_currentTimer.ToString();
         if (f_currentTimer <= 0)
         {
-            //GameOver();
+            GameOver();
         }
     }
 
@@ -139,12 +159,19 @@ public class GameManager : MonoBehaviour
 
     public void SetupCountDownForNewZone()
     {
+        b_IsInInvertMode = false;
+        ParticleZone.SetActive(false);
         foreach (Player_Manager player in PlayersList)
         {
             player.NoHealZone();
         }
         Instantiate(HealZone, spawnPointTransform.position, Quaternion.identity);
         SetupHealZoneCountdown();
+    }
+
+    public bool IsInvertMode()
+    {
+        return b_IsInInvertMode;
     }
 
 }

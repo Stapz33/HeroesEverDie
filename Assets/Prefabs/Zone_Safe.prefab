@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4481634824830558}
   - component: {fileID: 114491591301215882}
-  - component: {fileID: 65777843944997844}
+  - component: {fileID: 135814678313401570}
   m_Layer: 0
   m_Name: Zone_Safe
   m_TagString: Untagged
@@ -51,7 +51,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1103014704538748}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.569778, y: 1.7, z: 0.6948471}
+  m_LocalPosition: {x: 1.569778, y: 2.18, z: 0.6948471}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4830847867138178}
@@ -65,24 +65,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1394563007689358}
   m_LocalRotation: {x: 0.7071067, y: -0, z: -0, w: 0.70710695}
-  m_LocalPosition: {x: 0, y: -0.56, z: -0.00000047684}
-  m_LocalScale: {x: 40.428196, y: 40.428196, z: 40.428196}
+  m_LocalPosition: {x: 0, y: -0.56, z: -0.00000053644}
+  m_LocalScale: {x: 111.04165, y: 111.04165, z: 111.04165}
   m_Children: []
   m_Father: {fileID: 4481634824830558}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
---- !u!65 &65777843944997844
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1103014704538748}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 13, y: 3, z: 13}
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &114491591301215882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -95,6 +83,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f_TimeLeft: 15
+--- !u!135 &135814678313401570
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1103014704538748}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 9.76
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212591772721744294
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -130,7 +130,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f7b6513722649314d945ddac9e52b3ac, type: 3}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0, g: 0.8153572, b: 1, a: 0.3137255}
   m_FlipX: 0
   m_FlipY: 0

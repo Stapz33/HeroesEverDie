@@ -19,8 +19,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4474603134676866}
-  - component: {fileID: 65359356258371288}
   - component: {fileID: 114635538205586880}
+  - component: {fileID: 135755413635056076}
   m_Layer: 0
   m_Name: Heal_Zone
   m_TagString: Untagged
@@ -52,7 +52,7 @@ Transform:
   m_GameObject: {fileID: 1857271112030300}
   m_LocalRotation: {x: 0.7071067, y: -0, z: -0, w: 0.70710695}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 30.578197, y: 30.578197, z: 30.578197}
+  m_LocalScale: {x: 86.35068, y: 86.35068, z: 86.35068}
   m_Children: []
   m_Father: {fileID: 4474603134676866}
   m_RootOrder: 0
@@ -71,18 +71,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65359356258371288
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1047847144810622}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 10, y: 2, z: 10}
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &114635538205586880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -94,6 +82,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3969108425058cd4ab7c7ae806da488b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &135755413635056076
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1047847144810622}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 7.41
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212768861924325248
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -129,7 +129,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f7b6513722649314d945ddac9e52b3ac, type: 3}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0, g: 1, b: 0.45091605, a: 0.53333336}
   m_FlipX: 0
   m_FlipY: 0

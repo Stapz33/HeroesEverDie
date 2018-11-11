@@ -29,7 +29,7 @@ public class Zone_Heal : MonoBehaviour {
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !GameManager.s_Singleton.IsInvertMode())
         {
             other.GetComponent<Player_Manager>().NoHealZone();
         }
