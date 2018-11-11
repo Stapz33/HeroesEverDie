@@ -21,7 +21,7 @@ public class UI_Manager : MonoBehaviour
 
     public void OnPlay()
     {
-        SceneManager.LoadScene("Scene_Build");  
+        SceneManager.LoadScene(1);  
     }
 
     public void OnQuit()
