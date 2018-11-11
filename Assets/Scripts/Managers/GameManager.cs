@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         {
             s_Singleton = this;
         }
+        Time.timeScale = 1;
         SetupPlayersManager();
     }
 
