@@ -19,6 +19,16 @@ public class UI_Manager : MonoBehaviour
 		
 	}
 
+    public void UnShowUI(GameObject ui)
+    {
+        ui.SetActive(false);
+    }
+
+    public void ShowUI(GameObject ui)
+    {
+        ui.SetActive(true);
+    }
+
     public void OnPlay()
     {
         SceneManager.LoadScene(1);  
