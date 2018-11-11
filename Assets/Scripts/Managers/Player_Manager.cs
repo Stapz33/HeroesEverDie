@@ -12,7 +12,7 @@ public class Player_Manager : MonoBehaviour {
     private float f_HealMultiplier;
     private float f_DamageMultiplier;
 
-    private bool b_IsInHealZone;
+    private bool b_IsInHealZone = false;
     private bool b_IsPlayerMoving;
 
     private bool b_IsInSafeZone;
@@ -32,7 +32,7 @@ public class Player_Manager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		if(b_IsInHealZone && f_PlayerHP < f_MaxHealth && b_IsInSafeZone)
+		if(b_IsInHealZone && f_PlayerHP < f_MaxHealth)
         {
             f_PlayerHP += Time.deltaTime * f_HealMultiplier;
             if (f_PlayerHP > f_MaxHealth)
@@ -58,6 +58,13 @@ public class Player_Manager : MonoBehaviour {
 
     public void ZoneSafe()
     {
+        if (!b_IsInSafeZone)
+        b_IsInSafeZone = true;
+    }
+
+    public void NotZoneSafe()
+    {
+        if (b_IsInSafeZone)
         b_IsInSafeZone = false;
     }
 

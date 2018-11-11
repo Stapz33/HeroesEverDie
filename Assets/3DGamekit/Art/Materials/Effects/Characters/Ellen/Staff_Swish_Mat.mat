@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: Staff_Swish_Mat
   m_Shader: {fileID: 4800000, guid: ea8ac0f28db7ea24b8ab84de001c52e6, type: 3}
-  m_ShaderKeywords: _ALPHABLEND_ON _DISTORTION_ON _NORMALMAP
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA _ALPHABLEND_ON _DISTORTION_ON _NORMALMAP
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0

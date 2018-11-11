@@ -18,8 +18,11 @@ public class GameManager : MonoBehaviour
     private float ZoneTimer;
 
     private bool b_IsInSafeZone;
-    public GameObject g_ZoneSafePrefab;
-    public List<Transform> l_SpawnPoint;
+    public GameObject ZoneSafePrefab;
+    public GameObject HealZone;
+    public List<Transform> l_SpawnPointBase;
+
+    private Transform spawnPointTransform = null;
 
     private void Awake()
     {
@@ -37,8 +40,8 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-		
-	}
+        SetupHealZoneCountdown();
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -57,18 +60,22 @@ public class GameManager : MonoBehaviour
 
     public void GroundHeal()
     {
-        Transform spawnPointTransform = l_SpawnPoint[Random.Range(0, l_SpawnPoint.Count)];
+        spawnPointTransform = l_SpawnPointBase[Random.Range(0, l_SpawnPointBase.Count)];
+        l_SpawnPointBase.Remove(spawnPointTransform);
         foreach (Player_Manager player in PlayersList)
         {
             player.HealZone();
         }
-        Instantiate(g_ZoneSafePrefab, spawnPointTransform.position, Quaternion.identity);
+        Instantiate(ZoneSafePrefab, spawnPointTransform.position, Quaternion.identity);
     }
 
     public void SetupHealZoneCountdown()
     {
-        ZoneTimer = Random.Range(0f, l_CoolDown.Count);
-        b_IsOkToRandom = true;
+        if (l_SpawnPointBase.Count > 0)
+        {
+            ZoneTimer = l_CoolDown[Random.Range(0, l_CoolDown.Count)];
+            b_IsOkToRandom = true;
+        }
     }
 
     public void SetupPlayersManager()
@@ -93,6 +100,16 @@ public class GameManager : MonoBehaviour
     public float GetGenericDamageMultiplier()
     {
         return DamageMultiplier;
+    }
+
+    public void SetupCountDownForNewZone()
+    {
+        foreach (Player_Manager player in PlayersList)
+        {
+            player.NoHealZone();
+        }
+        Instantiate(HealZone, spawnPointTransform.position, Quaternion.identity);
+        SetupHealZoneCountdown();
     }
 
 }

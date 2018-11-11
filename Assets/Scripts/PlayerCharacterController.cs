@@ -19,6 +19,7 @@ public class PlayerCharacterController : MonoBehaviour
     private Vector3 moveInput;
     private Vector3 moveVelocity;
     private Vector3 playerDirection;
+    private Vector3 ImpulseVector;
 
     public Player_Stun_Zone g_StunZone;
     public float f_DelayToStun = 2.0f;
@@ -27,7 +28,9 @@ public class PlayerCharacterController : MonoBehaviour
 
     public float f_DashCountDown = 4.0f;
     public float f_DashForce;
-    private bool b_IsOkToDash = true;
+    private bool b_IsKnockedBack = false;
+    private bool b_CanDash = true;
+    private bool b_IsOkToDash = false;
     private float f_ImpulseSave;
     private bool b_CanUseStun = true;
     public GameObject g_ZoneDashPrefab;
@@ -45,13 +48,6 @@ public class PlayerCharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!b_IsOkToDash)
-        {
-            if(f_DashCountDown - Time.deltaTime <= 0)
-            {
-                b_IsOkToDash = true;
-            }
-        }
 
 
         moveInput = new Vector3(Input.GetAxisRaw(moveHorizontal), 0f, Input.GetAxisRaw(moveVertical));
@@ -70,15 +66,14 @@ public class PlayerCharacterController : MonoBehaviour
         playerDirection = Vector3.right * Input.GetAxisRaw(moveHorizontal) + Vector3.forward * Input.GetAxisRaw(moveVertical);
         if (playerDirection.sqrMagnitude > 0.0f)
         {
+            if (!b_IsOkToDash && !b_IsKnockedBack)
             transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
 
-            if (Input.GetButtonDown(AButton))
+            if (Input.GetButton(AButton) && b_CanDash)
             {
-                if (b_IsOkToDash)
-                {
-                    myRigidbody.AddForce(transform.forward * f_DashForce,ForceMode.Impulse);
-                    g_ZoneDashPrefab.SetActive(true);
-                }
+                b_IsOkToDash = true;
+                b_CanDash = false;
+                StartCoroutine(DashCD());
             }
         }
 
@@ -95,14 +90,42 @@ public class PlayerCharacterController : MonoBehaviour
         myRigidbody.velocity = new Vector3(0, 0, 0); 
     }
 
+    public IEnumerator DashCD()
+    {
+        yield return new WaitForSeconds(0.12f);
+        b_IsOkToDash = false;
+        yield return new WaitForSeconds(1f);
+        b_CanDash = true;
+    }
+
     public void ExpulsePlayer(Vector3 impulseVector)
     {
-       myRigidbody.AddForce(impulseVector * f_DashForce, ForceMode.Impulse);
+        b_IsKnockedBack = true;
+        ImpulseVector = impulseVector;
+        StartCoroutine(KnockBackCD());
+    }
+
+    public IEnumerator KnockBackCD()
+    {
+        yield return new WaitForSeconds(0.12f);
+        b_IsKnockedBack = false;
     }
 
     private void FixedUpdate()
     {
-        myRigidbody.velocity = moveVelocity;
+        if (b_IsKnockedBack)
+        {
+            myRigidbody.AddForce(ImpulseVector * f_DashForce * 3, ForceMode.Impulse);
+        }
+        if (b_IsOkToDash)
+        {
+            myRigidbody.AddForce(transform.forward * f_DashForce, ForceMode.Impulse);
+            g_ZoneDashPrefab.SetActive(true);
+        }
+        else if (!b_IsOkToDash)
+        {
+            myRigidbody.velocity = moveVelocity;
+        }
     }
 
     public void StunPlayer()

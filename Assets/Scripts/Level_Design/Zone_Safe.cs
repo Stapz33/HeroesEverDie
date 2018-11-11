@@ -15,10 +15,11 @@ public class Zone_Safe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(f_TimeLeft - Time.deltaTime == 0f)
+        f_TimeLeft -= Time.deltaTime;
+        if(f_TimeLeft <= 0f)
         {
-            GameManager.s_Singleton.SetupHealZoneCountdown();
-            Destroy(this);
+            GameManager.s_Singleton.SetupCountDownForNewZone();
+            Destroy(gameObject);
         }
     }
 
@@ -26,7 +27,15 @@ public class Zone_Safe : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.GetComponent<Player_Manager>().ZoneSafe();
+            other.GetComponent<Player_Manager>().NoHealZone();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.GetComponent<Player_Manager>().HealZone();
         }
     }
 }
