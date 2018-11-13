@@ -136,10 +136,14 @@ public class PlayerCharacterController : MonoBehaviour
 
     public void StunPlayer()
     {
-        b_isStun = true;
-        BaseMoveSpeed = moveSpeed;
-        moveSpeed = 0f;
-        StartCoroutine(StunCD());
+        //ATHUR RAJOUT
+        if (!b_isStun)
+        {
+            b_isStun = true;
+            BaseMoveSpeed = moveSpeed;
+            moveSpeed = 0f;
+            StartCoroutine(StunCD());
+        }
     }
 
     IEnumerator StunCD()
