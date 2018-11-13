@@ -142,6 +142,7 @@ public class PlayerCharacterController : MonoBehaviour
             b_isStun = true;
             BaseMoveSpeed = moveSpeed;
             moveSpeed = 0f;
+            StopCoroutine(StunCD());
             StartCoroutine(StunCD());
         }
     }
